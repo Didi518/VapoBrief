@@ -62,36 +62,38 @@ function execute_requete($req){
     }
         echo $error; //afficher les erreurs éventuelles
     ?>
-<form method="post">
-    <div class='d-flex justify-content-center'>
-        <div class='d-flex flex-column bd-highlight mb-3'>
+    <form method="post">
+        <div class='d-flex justify-content-center'>
+            <div class='d-flex flex-column bd-highlight mb-3'>
 
-        <label class="text-center">Nom du produit </label>
-            <input type="text" name="nom"><br>
+                <label class="text-center">Nom du produit </label>
+                <input type="text" name="nom"><br>
 
-            <label class="text-center">Description</label>
-            <input type="text" name="description"><br>
+                <label class="text-center">Description</label>
+                <input type="text" name="description"><br>
 
-            <label class="text-center">Prix d'achat</label>
-            <input type="number" name="prixa"><br>
+                <label class="text-center">Prix d'achat</label>
+                <input type="number" name="prixa"><br>
 
-            <label class="text-center">Prix de vente</label>
-            <input type="number" name="prixv"><br>
+                <label class="text-center">Prix de vente</label>
+                <input type="number" name="prixv"><br>
 
-            <label class="text-center">Quantité</label>
-            <input type="number" name="quantite"><br>
+                <label class="text-center">Quantité</label>
+                <input type="number" name="quantite"><br>
 
-            <label class="text-center"> Reference  </label>
-            <input type="text" name="ref"><br>
+                <label class="text-center"> Reference  </label>
+                <input type="text" name="ref"><br>
 
-            <select name="produit">
-            <label class="text-center">Type de produit</label>
-        <option value="Vapoteuse"> Vapoteuse </option>
-        <option value="E-liquide"> E-liquide </option>
-    </select><br>
-    <input type="submit" class="btn btn-secondary" value="SUBMIT">
-</div>
-</div>
-</form>
+                <select name="produit">
+                    <label class="text-center">Type de produit</label>
+
+                    <option value="Vapoteuse"> Vapoteuse </option>
+                    <option value="E-liquide"> E-liquide </option>
+                </select><br>
+
+                <input type="submit" class="btn btn-secondary" value="SUBMIT">
+            </div>
+        </div>
+    </form>
 </body>
 </html>
