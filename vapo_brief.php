@@ -56,6 +56,9 @@ function execute_requete($req){
             </div>
             ';
         }
+        if (strlen($_POST['nom']) <= 3 || strlen($_POST['nom']) > 15) {
+            $error .= '<div class="alert alert-danger"> Erreur taille nom (doit etre compris entre 3 et 15 caractères)</div>';
+        }
     }
         echo $error; //afficher les erreurs éventuelles
     ?>
