@@ -1,10 +1,11 @@
 <?php
 // équivalent fetch de JS
-$pdo = new PDO('mysql:host=localhost; dbname=brief_vapo','admin', 'adminpwd', array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_WARNING, PDO::MYSQL_ATTR_INIT_COMMAND=>"SET NAMES UTF8"));
+$pdo = new PDO('mysql:host=localhost; dbname=brief_vapo','root', 'proot', array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_WARNING, PDO::MYSQL_ATTR_INIT_COMMAND=>"SET NAMES UTF8"));
 
 //décla variables
 $content = '';
 $error = '';
+$pdostatement = $pdo->query("SELECT id, nom, typeobj, info, prix_achat, prix_vente,quantite ,reference FROM produit ORDER BY typeobj DESC ");
 
 //fonction qui permet de repérer les erreurs de code
 function debug($arg){
@@ -59,6 +60,40 @@ function execute_requete($req){
         if (strlen($_POST['nom']) <= 3 || strlen($_POST['nom']) > 15) {
             $error .= '<div class="alert alert-danger"> Erreur taille nom (doit etre compris entre 3 et 15 caractères)</div>';
         }
+        $r = execute_requete(" SELECT nom FROM produit WHERE nom = '$_POST[nom]' ");
+
+        if ($r->rowCount() >= 1) {
+    
+            $error .= "<div class='alert alert-danger'> Nom indisponible </div>";
+        }
+    
+        $f = execute_requete(" SELECT reference FROM produit WHERE reference = '$_POST[ref]' ");
+    
+        if ($f->rowCount() >= 1) {
+    
+            $error .= "<div class='alert alert-danger'> Reference indisponible </div>";
+        }
+        if ($_POST["nom"]) {
+            $nom = $_POST["nom"];
+        } else {
+            $nom = "";
+        }
+        if (empty($error)) {
+            execute_requete("INSERT INTO produit (nom,info,typeobj,prix_achat,prix_vente,quantite,reference ) 
+            VALUES ( 
+                '$nom',
+                '$_POST[descri]',
+                '$_POST[produit]',
+                '$_POST[prixa]',
+                '$_POST[prixv]',
+                '$_POST[quantite]',
+                '$_POST[ref]' )
+            ");
+    
+            }
+        
+    echo $content; //Affichage de content 
+    header('location:vapo_brief.php');
     }
         echo $error; //afficher les erreurs éventuelles
     ?>
@@ -70,7 +105,7 @@ function execute_requete($req){
                 <input type="text" name="nom"><br>
 
                 <label class="text-center">Description</label>
-                <input type="text" name="description"><br>
+                <input type="text" name="descri"><br>
 
                 <label class="text-center">Prix d'achat</label>
                 <input type="number" name="prixa"><br>
