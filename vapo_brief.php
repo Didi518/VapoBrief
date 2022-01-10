@@ -5,7 +5,7 @@ $pdo = new PDO('mysql:host=localhost; dbname=brief_vapo','root', 'proot', array(
 //décla variables
 $content = '';
 $error = '';
-$pdostatement = $pdo->query("SELECT id, nom, typeobj, info, prix_achat, prix_vente,quantite ,reference FROM produit ORDER BY typeobj DESC ");
+$pdostatement = $pdo->query("SELECT id, nom, typeobj, descri, prix_achat, prix_vente,quantite ,reference FROM produit ORDER BY typeobj DESC ");
 
 //fonction qui permet de repérer les erreurs de code
 function debug($arg){
@@ -89,7 +89,6 @@ function execute_requete($req){
                 '$_POST[quantite]',
                 '$_POST[ref]' )
             ");
-    
             }
         
     echo $content; //Affichage de content 
