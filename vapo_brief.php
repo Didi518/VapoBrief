@@ -174,7 +174,7 @@ function execute_requete($req)
     <?php
     endif;
 
-// ajout des données dans bdd via pdo, meth $_POST
+// ajout des données dans bdd via pdo, meth $_POST + gesion erreurs inputs
 if(isset($_GET['action']) && $_GET['action'] == 'ajout'):
     echo '<div class="text-center">
     <a href="?action= "><i class="fas fa-undo-alt"> UNDO</i>
