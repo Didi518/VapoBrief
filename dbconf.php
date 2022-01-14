@@ -1,6 +1,6 @@
 <?php
 /*On définit toutes les constantes dans ce fichier là*/
-  const DB_HOST    = "localhost";
+  /*const DB_HOST    = "localhost";
   const DB_NAME    = "brief_vapo";
   const DB_LOGIN   = "root";
   const DB_PASS    = "proot";
@@ -15,4 +15,4 @@
     PDO::MYSQL_ATTR_FOUND_ROWS   => true // track affected SQL rows, using rowCount
   ];
 
-?>
+?>*/

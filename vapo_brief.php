@@ -14,9 +14,13 @@ try {
 } catch (PDOException $e) {
     echo 'Échec lors de la connexion : ' . $e->getMessage();
 }
-//décla variables
+//décla variables utiles
 $content = '';
 $error = '';
+//set la supression
+if (isset($_GET['action']) && $_GET['action'] == 'supression') {
+    execute_requete("DELETE FROM produit WHERE id = '$_GET[id]'");
+}
 $pdostatement = $pdo->query("SELECT id, nom, typeobj, info, prix_achat, prix_vente,quantite ,reference FROM produit ORDER BY typeobj DESC ");
 
 //fonction qui permet de repérer les erreurs de code
@@ -61,10 +65,7 @@ function execute_requete($req)
 <body>
     <?php
 
-    //set la supression
-    if (isset($_GET['action']) && $_GET['action'] == 'supression') {
-        execute_requete("DELETE FROM produit WHERE id = '$_GET[id]'");
-    }
+    
 
     //set la modif => créer le tableau
     echo "<table class='table table-bordered' cellpadding='8'>";
@@ -86,7 +87,7 @@ function execute_requete($req)
             echo "<td> $valeur </td>";
         }
         echo '<td class="text-center">
-            <a href="?action=supression&id=' . $ligne['id'] . '"onclick="return(confirm( \' Voulez vous supprimer cet user : ' . $ligne['nom'] . '\' ) )" >
+            <a href="?action=supression&id=' . $ligne['id'] . '"onclick="return(confirm( \' Voulez vous supprimer cet id : ' . $ligne['nom'] . '\' ) )" >
             <i class="far fa-trash-alt"></i>
             </a>
             </td>';
@@ -98,9 +99,11 @@ function execute_requete($req)
             </td>';
 
         echo "</tr>";
+        
 
-        echo "</table>";
     }
+    echo "</table>";
+    
 
     //boutton add, pour préparer requête insérer
 
@@ -127,8 +130,8 @@ function execute_requete($req)
             nom = '$_POST[nom]',
             info = '$_POST[descri]',
             typeobj = '$_POST[produit]',
-            prix_achat = '$_POST[prixa]';
-            prix_vente = '$_POST[prixv]';
+            prix_achat = '$_POST[pa]';
+            prix_vente = '$_POST[pv]';
             quantite = '$_POST[quantite];
             reference = '$_POST[ref]';
             WHERE id='$_POST[id]' ");
@@ -151,10 +154,10 @@ function execute_requete($req)
                     <input type="text" name="descri"><br>
 
                     <label class="text-center">Prix d'achat</label>
-                    <input type="number" name="prixa"><br>
+                    <input type="number" name="pa"><br>
 
                     <label class="text-center">Prix de vente</label>
-                    <input type="number" name="prixv"><br>
+                    <input type="number" name="pv"><br>
 
                     <label class="text-center">Quantité</label>
                     <input type="number" name="quantite"><br>
@@ -177,12 +180,12 @@ function execute_requete($req)
 // ajout des données dans bdd via pdo, meth $_POST + gesion erreurs inputs
 if(isset($_GET['action']) && $_GET['action'] == 'ajout'):
     echo '<div class="text-center">
-    <a href="?action= "><i class="fas fa-undo-alt"> UNDO</i>
+    <a href="?action= "><i class="fas fa-undo-a<p> Product added </p>lt"> UNDO</i>
     </a>
     </div>';
 
     if($_POST) {
-        if (!is_numeric($_POST['quantite']) || !is_numeric($_POST['prixa']) || !is_numeric($_POST['prixv']) || !is_numeric($_POST['ref'])) {
+        if (!is_numeric($_POST['quantite']) || !is_numeric($_POST['pa']) || !is_numeric($_POST['pv']) || !is_numeric($_POST['ref'])) {
     
             $error .= '
             <div class="d-flex justify-content-center">
@@ -223,8 +226,8 @@ if(isset($_GET['action']) && $_GET['action'] == 'ajout'):
                 '$nom',
                 '$_POST[descri]',
                 '$_POST[produit]',
-                '$_POST[prixa]',
-                '$_POST[prixv]',
+                '$_POST[pa]',
+                '$_POST[pv]',
                 '$_POST[quantite]',
                 '$_POST[ref]' )
             ");
@@ -260,10 +263,10 @@ if(isset($_GET['action']) && $_GET['action'] == 'ajout'):
             <input type="text" name="descri"><br>
 
             <label class="text-center">Prix d'achat</label>
-            <input type="number" name="prixa"><br>
+            <input type="number" name="pa"><br>
 
             <label class="text-center">Prix de vente</label>
-            <input type="number" name="prixv"><br>
+            <input type="number" name="pv"><br>
 
             <label class="text-center">Quantité</label>
             <input type="number" name="quantite"><br>
@@ -273,7 +276,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'ajout'):
 
            
             <label class="text-center" > Bouton de validation </label>
-            <input type="submit" class="btn btn-secondary" value="VALIDER" >
+            <input type="submit" class="btn btn-secondary" value="SUBMIT" >
 </form>   
 </body>
 
